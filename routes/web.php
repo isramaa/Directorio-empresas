@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 //$role = Role::create(['name' => 'admin']);
 //$role = Role::create(['name' => 'client']);
 
+Route::view('/{any}', 'welcome')->where('any', '.*');
+
 Route::get('/', function () {
     return view('welcome');
 });
