@@ -1,12 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+//LAYOUTS 
 import LayoutPublic from './layouts/LayoutPublic'
-import PageHome from './pagepublic/PageHome'
-import ProtectedRoutes from './pageauth/ProtectedRoutes'
 import LayoutAdmin from './layouts/LayoutAdmin'
 import LayoutClient from './layouts/LayoutClient'
+
+//PUBLIC
+import PageHome from './pagepublic/PageHome'
+import ProtectedRoutes from './pageauth/ProtectedRoutes'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+//AUTH
+import Login from './pageauth/Login'
 
 const App = () => {
   return (
@@ -15,6 +22,7 @@ const App = () => {
 
         <Route path="/" element={<LayoutPublic/>}>
           <Route index element={<PageHome/>}/>
+          <Route path='/login' element = {<Login/>}/>
         </Route>
 
         <Route element = {<ProtectedRoutes/>}>
@@ -23,8 +31,10 @@ const App = () => {
         </Route>
         </Route>
 
+        <Route element = {<ProtectedRoutes/>}>
         <Route path="/client" element={<LayoutClient/>}>
           <Route index element={<PageHome/>}/>
+        </Route>
         </Route>
 
       </Routes>
