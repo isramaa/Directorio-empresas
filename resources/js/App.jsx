@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 //AUTH
 import Login from './pageauth/Login'
+import Register from './pageauth/Register'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/" element={<LayoutPublic/>}>
           <Route index element={<PageHome/>}/>
           <Route path='/login' element = {<Login/>}/>
+          <Route path='/register' element= {<Register/>}/>
         </Route>
 
         <Route element = {<ProtectedRoutes/>}>
