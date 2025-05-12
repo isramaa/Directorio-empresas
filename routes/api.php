@@ -9,29 +9,25 @@ use App\Http\Controllers\Api\FrontController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function(){
-    ///////////PUBLIC
-    Route::get('/public/{slug}',[FrontController::class,'categoria']);
+Route::prefix('v1')->group(function() {
+    // PUBLIC
+    Route::get('/public/{slug}', [FrontController::class, 'categoria']);
 
-    ///////////auth
-    Route::post('/auth/register',[AuthController::class,'register']);
-    Route::post('/auth/login',[AuthController::class,'login']);
+    // AUTH (sin token)
+    Route::post('/auth/register', [AuthController::class, 'register']);
+    Route::post('/auth/login', [AuthController::class, 'login']);
 
-    //////////PRIVATE
-    Route::group(['middleware' => 'auth:sanctum'], function(){
-        //::auth
+    // PROTECTED ROUTES (requieren token Bearer)
+    Route::middleware('auth:sanctum')->group(function() {
+        // AUTH
         Route::post('/auth/logout', [AuthController::class, 'logout']);
 
-        //::rol client
+        // CLIENT
         Route::apiResource('/client/empresa', EmpresaClient::class);
 
-        //::rol admin
+        // ADMIN
         Route::apiResource('/admin/user', UserController::class);
         Route::apiResource('/admin/categoria', CategoriaController::class);
         Route::apiResource('/admin/empresa', EmpresaController::class);
     });
 });
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');

@@ -10,19 +10,21 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request){
-        $response = ["success"=>false];
-        //validacion
-        
+    public function register(Request $request)
+    {
+        $response = ["success" => false];
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required',
         ]);
 
-        if ($validator -> fails()){
-            $response = ["error"=>$validator->errors()];
-            return response() -> json($response, 200);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
         }
 
         $input = $request->all();
@@ -31,50 +33,69 @@ class AuthController extends Controller
         $user = User::create($input);
         $user->assignRole('client');
 
-        $response["success"] = true;
-        //$response["token"] = $user->createToken("emartinez")->plainTextToken;
-
-        return response()->json($response, 200);
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuario registrado correctamente'
+        ], 201);
     }
 
-    public function login(Request $request){
-        $response = ["success"=>false];
-        //validacion
-        
+    public function login(Request $request)
+    {
+        $response = ["success" => false];
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if ($validator -> fails()){
-            $response = ["error"=>$validator->errors()];
-            return response() -> json($response, 200);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
         }
 
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
 
-            $response["token"] = $user->createToken("minig.app")->plainTextToken;
-            $response['user'] = [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'email_verified_at' => $user->email_verified_at,
-                'roles' => $user->getRoleNames(), // Aquí obtienes los roles del usuario
-                'created_at' => $user->created_at,
-                'updated_at' => $user->updated_at,
-            ];
-            $response['message'] = "logeado";
-            $response['success'] = true;
+            return response()->json([
+                'success' => true,
+                'message' => 'Logeado correctamente',
+                'token' => $user->createToken("minig.app")->plainTextToken,
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'email_verified_at' => $user->email_verified_at,
+                    'roles' => $user->getRoleNames(),
+                    'created_at' => $user->created_at,
+                    'updated_at' => $user->updated_at,
+                ]
+            ]);
         }
-        return response()->json($response, 200);
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Credenciales incorrectas'
+        ], 401);
     }
 
-    public function logout(){
-        $response = ["success"=>false];
-        auth()->user()->tokens()->delete();
-        $response = ["success"=>true,
-                     "message"=>"Sesion cerrada"];
-        return response()->json($response, 200);
+    public function logout(Request $request)
+    {
+        $user = $request->user(); // auth()->user() también funciona
+
+        if ($user) {
+            $user->currentAccessToken()->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Sesión cerrada'
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'No autenticado'
+        ], 401);
     }
 }

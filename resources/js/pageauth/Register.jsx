@@ -73,6 +73,8 @@ const Register = () => {
                             <a href="#" className="small text-decoration-none d-block text-center mt-3">
                                 Términos y condiciones
                             </a>
+                            <hr />
+                            <a href="/login" className="btn btn-primary w-100 mt-1">Iniciar Sesión</a>
                         </div>
                     </div>
                 </div>
