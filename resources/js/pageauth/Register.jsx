@@ -17,7 +17,7 @@ const Register = () => {
         }
       },[])
 
-    const submitRegistro = (e) => {
+    const submitRegistro = async(e) => {
         e.preventDefault();
 
         Config.GetRegister({name, email, password})
@@ -25,10 +25,6 @@ const Register = () => {
             if(data.success){
                 navigate("/login")
             }
-            setName('');
-            setEmail('');
-            setPassword('');
-            
         });
     };
 

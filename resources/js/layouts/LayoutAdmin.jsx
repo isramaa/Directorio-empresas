@@ -10,7 +10,10 @@ export default function LayoutAdmin() {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    if(getRol!="admin"){
+    const rol = getRol();
+    //console.log("ROL DETECTADO:", rol);
+
+    if(getRol()!="admin"){
       navigate("/")
     }
   },[])

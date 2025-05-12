@@ -64,6 +64,7 @@ class AuthController extends Controller
                 'created_at' => $user->created_at,
                 'updated_at' => $user->updated_at,
             ];
+            $response['message'] = "logeado";
             $response['success'] = true;
         }
         return response()->json($response, 200);
