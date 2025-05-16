@@ -21,4 +21,14 @@ export default {
         Authorization: `Bearer ${token}`
       }
     }),
+
+  GetUserAll: () => {
+  const token = sessionStorage.getItem('token'); // O localStorage
+  return api.get('/admin/user', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
 };

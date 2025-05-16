@@ -16,7 +16,6 @@ export default function LayoutClient() {
   },[])
   return (
     <div>
-        <h1>CLIENT</h1>
         <Navbar/>
         <Outlet/>
         <Footer/>

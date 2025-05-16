@@ -7,7 +7,6 @@ import AuthUser from '../pageauth/AuthUser'
 export default function LayoutPublic() {
   return (
     <>
-    <h1>PUBLIC</h1>
     <Navbar/>
     <Outlet/>
     <Footer/>

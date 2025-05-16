@@ -18,6 +18,9 @@ import Register from './pageauth/Register'
 import PanelAdmin from './pageadmin/PanelAdmin'
 import PanelCliente from './pageclient/PanelClient'
 
+//ROL/PANEL ADMIN
+import UserAll from './pageadmin/UserAll'
+
 const App = () => {
   return (
     <Router>
@@ -32,6 +35,7 @@ const App = () => {
         <Route element = {<ProtectedRoutes/>}>
         <Route path="/admin" element={<LayoutAdmin/>}>
           <Route index element={<PanelAdmin/>}/>
+          <Route path='user' element={<UserAll/>}/>
         </Route>
         </Route>
 
@@ -52,8 +56,6 @@ if (document.getElementById('example')) {
     const Index = ReactDOM.createRoot(document.getElementById("example"));
 
     Index.render(
-        <React.StrictMode>
             <App/>
-        </React.StrictMode>
     )
 }
