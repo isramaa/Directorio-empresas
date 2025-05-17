@@ -23,7 +23,7 @@ const UserUpdate = () => {
 
     const submitUpdate = async (ev) => {
         ev.preventDefault()
-        await Config.GetUserUpdate({aprobado}, id)
+        await Config.GetUserUpdate({name, aprobado}, id)
         navigate('/admin/user')
     }
 
