@@ -1,6 +1,7 @@
 import React, { use, useEffect, useState } from 'react'
 import Sidebar from './Sidebar'
 import Config from '../Config';
+import { Link } from 'react-router-dom';
 
 const UserAll = () => {
 
@@ -37,7 +38,9 @@ const UserAll = () => {
                                             <tr key={users.id}>
                                                 <td>{users.id}</td>
                                                 <td>{users.name}</td>
-                                                <td>Orden</td>
+                                                <td>
+                                                    <Link to={`/admin/user/edit/${users.id}`} className='btn btn-primary'>Editar</Link>
+                                                </td>
                                             </tr>
                                         )
                                     }
