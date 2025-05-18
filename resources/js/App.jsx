@@ -21,6 +21,7 @@ import PanelCliente from './pageclient/PanelClient'
 //ROL/PANEL ADMIN
 import UserAll from './pageadmin/UserAll'
 import UserUpdate from './pageadmin/UserUpdate'
+import CategoriaAll from './pageadmin/CategoriaAll'
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
           <Route index element={<PanelAdmin/>}/>
           <Route path='user' element={<UserAll/>}/>
           <Route path='user/edit/:id' element={<UserUpdate/>}/>
+          <Route path='categoria' element={<CategoriaAll/>}/>
         </Route>
         </Route>
 

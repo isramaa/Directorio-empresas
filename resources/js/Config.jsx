@@ -23,7 +23,7 @@ export default {
     }),
 
   GetUserAll: () => {
-  const token = sessionStorage.getItem('token'); // O localStorage
+  const token = sessionStorage.getItem('token');
   return api.get(`/admin/user`, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -32,7 +32,7 @@ export default {
 },
 
 GetUserById: (id) => {
-  const token = sessionStorage.getItem('token'); // O localStorage
+  const token = sessionStorage.getItem('token');
   return api.get(`/admin/user/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -41,8 +41,17 @@ GetUserById: (id) => {
 },
 
 GetUserUpdate: (data, id) => {
-  const token = sessionStorage.getItem('token'); // O localStorage
+  const token = sessionStorage.getItem('token');
   return api.put(`/admin/user/${id}`,data, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
+GetCategoriaAll: () => {
+  const token = sessionStorage.getItem('token');
+  return api.get(`/admin/categoria`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
