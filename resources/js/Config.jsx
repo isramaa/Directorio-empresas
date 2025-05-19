@@ -58,4 +58,13 @@ GetCategoriaAll: () => {
   });
 },
 
+GetCategoriaStore: (data) => {
+  const token = sessionStorage.getItem('token');
+  return api.post(`/admin/categoria`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
 };
