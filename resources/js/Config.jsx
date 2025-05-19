@@ -67,4 +67,22 @@ GetCategoriaStore: (data) => {
   });
 },
 
+GetCategoriaById: (id) => {
+  const token = sessionStorage.getItem('token');
+  return api.get(`/admin/categoria/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
+GetCategoriaUpdate: (data, id) => {
+  const token = sessionStorage.getItem('token');
+  return api.put(`/admin/categoria/${id}`,data, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
 };

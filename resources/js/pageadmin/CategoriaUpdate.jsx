@@ -1,14 +1,39 @@
-import React, { useState, useRef } from 'react'
-import Sidebar from './Sidebar'
-import { Link } from 'react-router-dom'
-import Config from '../Config'
+import React, { useEffect, useRef, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import Config from '../Config';
+import Sidebar from './Sidebar';
 
-const CategoriaStore = () => {
-    const [nombre, setNombre] = useState('')
-    const [descripcion, setDescripcion] = useState('')
-    const [orden, setOrden] = useState('')
-    const [urlfoto, setUrlfoto] = useState('')
-    const fileInputRef = useRef(null) 
+const CategoriaUpdate = () => {
+
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const [nombre, setNombre] = useState("");
+    const [descripcion, setDescripcion] = useState("");
+    const [orden, setOrden] = useState("");
+    const [menu, setMenu] = useState(false);
+    const [urlfoto, setUrlfoto] = useState("example.jpg");
+    const [file, setFile] = useState("");
+    const fileInputRef = useRef(null)
+
+    useEffect(() => {
+    const GetCategoriaById = async () => {
+        Config.GetCategoriaById(id).then(({ data }) => {
+        setNombre(data.nombre)
+        setDescripcion(data.descripcion)
+        setOrden(data.orden)
+        setUrlfoto(data.urlfoto)
+        setMenu(data.menu)
+        });
+    };
+    GetCategoriaById();
+    }, []);
+
+
+    const submitUpdate = async (ev) => {
+        ev.preventDefault()
+        await Config.GetCategoriaUpdate({nombre, descripcion, orden,urlfoto, menu}, id)
+        navigate(-1);
+    }
 
     const handleInputChange = async (e) => {
         let files = e.target.files
@@ -19,27 +44,21 @@ const CategoriaStore = () => {
         }
     }
 
-    const submitStore = async (e) => {
-        e.preventDefault();
-        await Config.GetCategoriaStore({ nombre, descripcion, orden, urlfoto })
-        setNombre('');
-        setDescripcion('');
-        setOrden('');
-        setUrlfoto('');
-        if (fileInputRef.current) {
-            fileInputRef.current.value = '';
-        }
-    }
-
-    return (
-        <div className="container bg-light">
+  return (
+    <div className="container bg-light">
             <div className="row">
                 <Sidebar />
                 <div className="col-sm-9 mt-3 mb-3">
                     <div className="card">
                         <div className="card-body">
-                            <form onSubmit={submitStore}>
+                            <form onSubmit={submitUpdate}>
                                 <div className="form-group row">
+                                    <div className="mt-3">
+                                        <div className="form-check form-switch">
+                                            <input className='form-check-input' checked={menu} onChange={(e) => setMenu(!menu)} type='checkbox' role='switch' id='menu'/>
+                                            <label className='form-check-label' htmlFor='menu'>Publicado</label>
+                                        </div>
+                                    </div>
                                     <div className="col-sm-8">
                                         <label>Nombre</label>
                                         <input
@@ -69,6 +88,7 @@ const CategoriaStore = () => {
                                 </div>
                                 <div className="mt-3">
                                     <label>Imagen:</label>
+                                    <img src={"/img/categoria/" + urlfoto} className='img-fluid img-thumbnail'/>
                                     <input
                                         className='form-control'
                                         type='file'
@@ -78,7 +98,7 @@ const CategoriaStore = () => {
                                 </div>
                                 <div className="btn-group mt-3">
                                     <Link to={-1} className='btn btn-secondary'>Regresar</Link>
-                                    <button type='submit' className='btn btn-primary'>Añadir Categoria</button>
+                                    <button type='submit' className='btn btn-primary'>Actualizar Categoria</button>
                                 </div>
                             </form>
                         </div>
@@ -86,7 +106,7 @@ const CategoriaStore = () => {
                 </div>
             </div>
         </div>
-    )
+  )
 }
 
-export default CategoriaStore
+export default CategoriaUpdate

@@ -7,8 +7,8 @@ const UserUpdate = () => {
 
     const navigate = useNavigate();
     const { id } = useParams();
-    const [name, setName] =useState("");
-    const [aprobado, setAprobado] =useState(false);
+    const [name, setName] = useState("");
+    const [aprobado, setAprobado] = useState(false);
 
     useEffect(() => {
     const GetUserById = async () => {
