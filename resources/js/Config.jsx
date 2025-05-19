@@ -85,4 +85,13 @@ GetCategoriaUpdate: (data, id) => {
   });
 },
 
+DeleteCategoriaById: (id) => {
+  const token = sessionStorage.getItem('token');
+  return api.delete(`/admin/categoria/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
 };

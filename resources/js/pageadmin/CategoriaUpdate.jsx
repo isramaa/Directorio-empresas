@@ -26,7 +26,7 @@ const CategoriaUpdate = () => {
         });
     };
     GetCategoriaById();
-    }, []);
+    }, [id]);
 
 
     const submitUpdate = async (ev) => {
@@ -88,7 +88,11 @@ const CategoriaUpdate = () => {
                                 </div>
                                 <div className="mt-3">
                                     <label>Imagen:</label>
-                                    <img src={"/img/categoria/" + urlfoto} className='img-fluid img-thumbnail'/>
+                                    <img
+                                    src={urlfoto.startsWith('data:image') ? urlfoto : `/img/categoria/${urlfoto}?v=${Date.now()}`}
+                                    className='img-fluid img-thumbnail'
+                                    alt="Vista previa"
+                                    />
                                     <input
                                         className='form-control'
                                         type='file'

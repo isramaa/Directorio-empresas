@@ -82,9 +82,25 @@ class CategoriaController extends Controller
 }
 
 
-    public function destroy($id){
-        $data = Categoria::find($id);
-        $data->delete();
-        return response()->json("Categoria eliminada", 200);
+    public function destroy($id)
+{
+    $data = Categoria::find($id);
+
+    if (!$data) {
+        return response()->json(['error' => 'Categoría no encontrada'], 404);
     }
+
+    // Ruta del archivo a eliminar
+    if ($data->urlfoto) {
+        $filePath = public_path('img/categoria/' . $data->urlfoto);
+
+        if (file_exists($filePath)) {
+            unlink($filePath); // Elimina la imagen
+        }
+    }
+
+    $data->delete();
+    return response()->json("Categoria eliminada", 200);
+}
+
 }

@@ -17,6 +17,14 @@ const CategoriaAll = () => {
             setCategorias(response.data)
         }
 
+        const deleteCategoriaById = async (id) => {
+            const isDelete = window.confirm("¿Desea borrar la categoria?")
+            if(isDelete){
+                await Config.DeleteCategoriaById(id)
+                getCategoriaAll()
+            }
+        }
+
   return (
     <div className="container bg-light">
         <div className="row">
@@ -44,6 +52,7 @@ const CategoriaAll = () => {
                                                 <td>{categorias.orden}</td>
                                                 <td>
                                                     <Link to={`/admin/categoria/edit/${categorias.id}`} className='btn btn-primary'>Editar</Link>
+                                                    <button className='btn btn-danger' onClick={() => deleteCategoriaById(categorias.id)}>Eliminar</button>
                                                 </td>
                                             </tr>
                                         )
