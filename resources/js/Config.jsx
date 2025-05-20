@@ -94,4 +94,31 @@ DeleteCategoriaById: (id) => {
   });
 },
 
+GetEmpresaAll: () => {
+  const token = sessionStorage.getItem('token');
+  return api.get(`/admin/empresa`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
+GetEmpresaById: (id) => {
+  const token = sessionStorage.getItem('token');
+  return api.get(`/admin/empresa/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
+GetEmpresaUpdate: (data, id) => {
+  const token = sessionStorage.getItem('token');
+  return api.put(`/admin/empresa/${id}`,data, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
 };

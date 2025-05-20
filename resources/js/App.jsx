@@ -24,6 +24,8 @@ import UserUpdate from './pageadmin/UserUpdate'
 import CategoriaAll from './pageadmin/CategoriaAll'
 import CategoriaStore from './pageadmin/CategoriaStore'
 import CategoriaUpdate from './pageadmin/CategoriaUpdate'
+import EmpresaAll from './pageadmin/EmpresaAll'
+import EmpresaUpdate from './pageadmin/EmpresaUpdate'
 
 const App = () => {
   return (
@@ -39,11 +41,16 @@ const App = () => {
         <Route element = {<ProtectedRoutes/>}>
         <Route path="/admin" element={<LayoutAdmin/>}>
           <Route index element={<PanelAdmin/>}/>
+          {/* ---USUARIO--- */}
           <Route path='user' element={<UserAll/>}/>
           <Route path='user/edit/:id' element={<UserUpdate/>}/>
+          {/* ---CATEGORIA--- */}
           <Route path='categoria' element={<CategoriaAll/>}/>
           <Route path='categoria/create' element={<CategoriaStore/>}/>
           <Route path='categoria/edit/:id' element={<CategoriaUpdate/>}/>
+          {/* ---EMPRESA--- */}
+          <Route path='empresa' element={<EmpresaAll/>}/>
+          <Route path='empresa/edit/:id' element={<EmpresaUpdate/>}/>
         </Route>
         </Route>
 
