@@ -6,16 +6,15 @@ import { Link } from 'react-router-dom';
 const EmpresaAll = () => {
 
     const [empresas, setEmpresas] = useState();
-
-    useEffect(() => {
-        getEmpresaAll()
-    },[])
-
-    const getEmpresaAll = async () => {
-        const response = await Config.GetEmpresaAll()
-        setEmpresas(response.data)
-    }
-
+    
+        useEffect(() => {
+            getEmpresaAllCliente()
+        },[])
+    
+        const getEmpresaAllCliente = async () => {
+            const response = await Config.GetEmpresaAllClient()
+            setEmpresas(response.data)
+        }
 
   return (
     <div className="container bg-light">
@@ -44,7 +43,7 @@ const EmpresaAll = () => {
                                                     <td>{empresas.direccion}</td>
                                                     <td>{empresas.orden}</td>
                                                     <td>
-                                                        <Link to={`/admin/empresa/edit/${empresas.id}`} className='btn btn-primary'>Editar</Link>
+                                                        <Link to={`/client/empresa/edit/${empresas.id}`} className='btn btn-primary'>Editar</Link>
                                                     </td>
                                                 </tr>
                                             )

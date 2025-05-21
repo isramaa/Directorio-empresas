@@ -21,7 +21,7 @@ export default {
         Authorization: `Bearer ${token}`
       }
     }),
-
+//ADMIN
   GetUserAll: () => {
   const token = sessionStorage.getItem('token');
   return api.get(`/admin/user`, {
@@ -115,6 +115,16 @@ GetEmpresaById: (id) => {
 GetEmpresaUpdate: (data, id) => {
   const token = sessionStorage.getItem('token');
   return api.put(`/admin/empresa/${id}`,data, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
+//CLIENT
+GetEmpresaAllClient: () => {
+  const token = sessionStorage.getItem('token');
+  return api.get(`/client/empresa`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
