@@ -59,7 +59,7 @@ export default function Navbar() {
               </li>
             ) : (
               <li className="nav-item">
-                <a className="nav-link fw-bold" href="/login">Incio de Sesión</a>
+                <a className="nav-link fw-bold" href="/login">Inicio de Sesión</a>
               </li>
             )}
           </ul>

@@ -131,4 +131,13 @@ GetEmpresaAllClient: () => {
   });
 },
 
+GetEmpresaStore: (data) => {
+  const token = sessionStorage.getItem('token');
+  return api.post(`/client/empresa`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
 };
