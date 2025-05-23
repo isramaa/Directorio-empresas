@@ -33,6 +33,17 @@ const EmpresaModal = ({ show, empresa, onClose }) => {
           <p>{empresa.email}</p>
           <p>{empresa.direccion}</p>
 
+          <div className="container">
+            <div className="row mb-2">
+              <div className="col-6"><p className="mb-1">{empresa.website}</p></div>
+              <div className="col-6"><p className="mb-1">{empresa.facebook}</p></div>
+            </div>
+            <div className="row">
+              <div className="col-6"><p className="mb-1">{empresa.youtube}</p></div>
+              <div className="col-6"><p className="mb-1">{empresa.tiktok}</p></div>
+            </div>
+          </div>
+
 
         </div>
       </div>
