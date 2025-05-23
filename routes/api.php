@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function() {
     // PUBLIC
-    Route::get('/public/{slug}', [FrontController::class, 'categoria']);
+    Route::get('/public/empresas/{quantity}', [FrontController::class, 'empresas']);
+    //Route::get('/public/{slug}', [FrontController::class, 'categoria']);
 
     // AUTH (sin token)
     Route::post('/auth/register', [AuthController::class, 'register']);

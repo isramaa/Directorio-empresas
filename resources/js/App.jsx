@@ -8,9 +8,13 @@ import LayoutAdmin from './layouts/LayoutAdmin'
 import LayoutClient from './layouts/LayoutClient'
 
 //PUBLIC
-import PageHome from './pagepublic/PageHome'
+import Home from './pagepublic/Home'
 import ProtectedRoutes from './pageauth/ProtectedRoutes'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Categorias from './pagepublic/Categorias'
+import NotFound from './pagepublic/NotFound'
+import Categoria from './pagepublic/Categoria'
+
 
 //AUTH
 import Login from './pageauth/Login'
@@ -39,9 +43,12 @@ const App = () => {
       <Routes>
 
         <Route path="/" element={<LayoutPublic/>}>
-          <Route index element={<PageHome/>}/>
+          <Route index element={<Home/>}/>
           <Route path='/login' element = {<Login/>}/>
           <Route path='/register' element= {<Register/>}/>
+          <Route path='/*' element= {<NotFound/>}/>
+          <Route path='/categorias' element= {<Categorias/>}/>
+          <Route path='/categorias/:slug' element= {<Categoria/>}/>
         </Route>
 
         {/* ADMIN */}

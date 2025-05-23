@@ -14,6 +14,9 @@ export default {
   GetRegister: (data) => api.post(`/auth/register`, data),
   GetLogin: (data) => api.post(`/auth/login`, data),
 
+  // Public
+  GetEmpresas:(data) => api.get(`/public/empresas/${data}`),
+
   // Logout usando token Bearer
   GetLogout: (token) =>
     api.post(`/auth/logout`, {}, {
@@ -157,5 +160,7 @@ GetEmpresaUpdateClient: (data, id) => {
     }
   });
 },
+
+
 
 };
