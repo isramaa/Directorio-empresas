@@ -140,4 +140,22 @@ GetEmpresaStore: (data) => {
   });
 },
 
+GetEmpresaByIdClient: (id) => {
+  const token = sessionStorage.getItem('token');
+  return api.get(`/client/empresa/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
+GetEmpresaUpdateClient: (data, id) => {
+  const token = sessionStorage.getItem('token');
+  return api.put(`/client/empresa/${id}`,data, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+},
+
 };

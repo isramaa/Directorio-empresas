@@ -92,6 +92,7 @@ const CategoriaUpdate = () => {
                                     src={urlfoto.startsWith('data:image') ? urlfoto : `/img/categoria/${urlfoto}?v=${Date.now()}`}
                                     className='img-fluid img-thumbnail'
                                     alt="Vista previa"
+                                    style={{ maxWidth: "300px", display: urlfoto ? "block" : "none" }}
                                     />
                                     <input
                                         className='form-control'
