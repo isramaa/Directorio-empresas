@@ -7,55 +7,113 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Directorio de Empresas (Laravel + React)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Directorio profesional de empresas desarrollado con **Laravel 12 (API REST)** y **React 18** (SPA), con autenticación segura, paneles diferenciados (admin, cliente, público), validaciones robustas y diseño moderno y responsivo.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🚀 Características principales
 
-## Learning Laravel
+- **Frontend SPA**: React 18, React Router, Bootstrap 5, TailwindCSS, Axios.
+- **Backend API REST**: Laravel 12, Sanctum, Spatie Permissions.
+- **Autenticación**: Registro, login, logout, roles (admin/cliente), sincronización de estado.
+- **Paneles diferenciados**: Público (empresas/categorías aprobadas), Admin (gestión total), Cliente (gestión propia, estado de publicación).
+- **Validaciones**: Frontend (campos, formato, feedback visual) y backend (tipo, longitud, unicidad, seguridad).
+- **Diseño moderno**: Navbar/Footer sticky, sidebars con íconos, cards, tablas y formularios responsivos.
+- **Buenas prácticas**: Código limpio, feedback de errores, flujos de autenticación robustos, visibilidad controlada.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 📦 Stack y dependencias
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Backend (Laravel)
+- PHP >= 8.2
+- Laravel 12
+- laravel/sanctum
+- spatie/laravel-permission
 
-## Laravel Sponsors
+### Frontend (React)
+- React 18
+- React Router DOM 6
+- Axios
+- Bootstrap 5
+- TailwindCSS 4
+- Vite
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## ⚙️ Instalación y ejecución
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+### 1. Clonar el repositorio
+```powershell
+git clone <REPO_URL>
+cd diremp
+```
 
-## Contributing
+### 2. Backend (Laravel)
+```powershell
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Frontend (React + Vite)
+```powershell
+npm install
+npm run dev
+```
 
-## Code of Conduct
+La app React se sirve en http://localhost:5173 y la API en http://localhost:8000 (no se usa http://localhost:5173).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 📁 Estructura del proyecto
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- `app/Http/Controllers/Api/` — Controladores API (auth, admin, cliente, público)
+- `app/Models/` — Modelos Eloquent (Empresa, Categoria, User)
+- `database/migrations/` — Migraciones de tablas
+- `resources/js/` — SPA React (componentes, layouts, páginas)
+- `routes/api.php` — Rutas de la API REST
+- `public/` — Archivos públicos y assets
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🛡️ Buenas prácticas implementadas
+
+- **Validaciones**: Frontend y backend, feedback visual y mensajes claros.
+- **Autenticación**: Estado sincronizado, flujos robustos, feedback inmediato.
+- **Visibilidad**: Solo empresas/categorías aprobadas en frontend público; panel cliente muestra estado (aprobada/pendiente).
+- **Diseño**: UI moderna, responsiva, accesible y profesional.
+- **Código**: Separación de responsabilidades, uso de hooks, componentes reutilizables, control de errores.
+
+---
+
+## 📝 Uso y pruebas
+
+- Accede a `/register` para crear un usuario cliente.
+- Un admin puede aprobar empresas/categorías desde su panel.
+- El panel cliente muestra el estado de publicación de sus empresas.
+- El público solo ve empresas/categorías aprobadas.
+
+---
+
+## 🤝 Contribución
+
+1. Haz un fork del proyecto
+2. Crea una rama (`git checkout -b feature/nueva-feature`)
+3. Haz commit de tus cambios (`git commit -am 'Agrega nueva feature'`)
+4. Haz push a la rama (`git push origin feature/nueva-feature`)
+5. Abre un Pull Request
+
+---
+
+## 📄 Licencia
+
+MIT. Ver archivo LICENSE.
+
+---
+
+**Desarrollado por Israel — 2025**
