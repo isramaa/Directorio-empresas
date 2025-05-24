@@ -110,10 +110,4 @@ La app React se sirve en http://localhost:5173 y la API en http://localhost:8000
 
 ---
 
-## 📄 Licencia
-
-MIT. Ver archivo LICENSE.
-
----
-
 **Desarrollado por Israel — 2025**
