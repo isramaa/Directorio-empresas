@@ -28,35 +28,39 @@ const UserUpdate = () => {
     }
 
   return (
-    <div className='container bg-light'>
-        <div className="row">
-            <Sidebar/>
-            <div className="col-sm-9 mt-3 mb-3">
-                <div className="card">
-                    <div className="card-header">EDITAR USUARIO</div>
-                    <div className="card-body">
-                        <form onSubmit={submitUpdate}>
-                            <div className="col-sm-12">
-                                <label htmlFor="name">Nombre: </label>
-                                <input type="text" className='form-control' value={name ?? ""} onChange={(e) => setName(e.target.value)} />
-                            </div>
-                            <div className="col-sm-12 mt-3">
-                                <div className="form-check form-switch">
-                                    <input className='form-check-input' checked = {aprobado} onChange={(e) => setAprobado (!aprobado)} type='checkbox' role='switch'  id='aprobado'/>
-                                    <label className='form-check-label' htmlFor="aprobado">Aprobado</label>
-                                </div>
-                            </div>
-
-                            <div className="btn-group mt-3">
-                                <Link to={-1} className='btn btn-secondary'>Regresar</Link>
-                                <button type='submit' className='btn btn-primary'>Actualizar Usuario</button>
-                            </div>
-                            
-                        </form>
-                    </div>
-                </div>
+    <div className='container-fluid bg-light min-vh-100 py-4'>
+      <div className="row">
+        <Sidebar/>
+        <main className="col-sm-9 mt-3 mb-3">
+          <div className="card shadow rounded-4 border-0">
+            <div className="card-header bg-primary text-white fw-bold fs-5 d-flex align-items-center gap-2">
+              <i className="bi bi-person-lines-fill me-2"></i> Editar Usuario
             </div>
-        </div>
+            <div className="card-body">
+              <form onSubmit={submitUpdate}>
+                <div className="mb-3">
+                  <label htmlFor="name" className="form-label fw-semibold">Nombre</label>
+                  <input type="text" className='form-control rounded-pill' value={name ?? ""} onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div className="mb-3">
+                  <div className="form-check form-switch">
+                    <input className='form-check-input' checked={aprobado} onChange={() => setAprobado(!aprobado)} type='checkbox' role='switch' id='aprobado'/>
+                    <label className='form-check-label' htmlFor="aprobado">Aprobado</label>
+                  </div>
+                </div>
+                <div className="d-flex gap-2 mt-4">
+                  <Link to={-1} className='btn btn-secondary rounded-pill px-4'>
+                    <i className="bi bi-arrow-left me-1"></i>Regresar
+                  </Link>
+                  <button type='submit' className='btn btn-primary rounded-pill px-4'>
+                    <i className="bi bi-save me-1"></i>Actualizar Usuario
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   )
 }

@@ -16,7 +16,7 @@ class EmpresaController extends Controller
 
     $data = Empresa::where('user_id', $user->id)
                     ->orderBy('orden')
-                    ->get(['id', 'orden', 'nombre', 'email', 'telefono', 'direccion']);
+                    ->get(['id', 'orden', 'nombre', 'email', 'telefono', 'direccion', 'publicado']);
 
     return response()->json($data, 200);
 }

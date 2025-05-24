@@ -12,12 +12,10 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $response = ["success" => false];
-
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'name' => 'required|string|max:50',
+            'email' => 'required|email|unique:users,email|max:100',
+            'password' => 'required|string|min:6|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -27,8 +25,8 @@ class AuthController extends Controller
             ], 422);
         }
 
-        $input = $request->all();
-        $input["password"] = bcrypt($input['password']);
+        $input = $request->only(['name', 'email', 'password']);
+        $input['password'] = bcrypt($input['password']);
 
         $user = User::create($input);
         $user->assignRole('client');
@@ -41,11 +39,9 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $response = ["success" => false];
-
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'required|email|max:100',
+            'password' => 'required|string|min:6|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -55,47 +51,44 @@ class AuthController extends Controller
             ], 422);
         }
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-
+        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return response()->json([
-                'success' => true,
-                'message' => 'Logeado correctamente',
-                'token' => $user->createToken("minig.app")->plainTextToken,
-                'user' => [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'email_verified_at' => $user->email_verified_at,
-                    'roles' => $user->getRoleNames(),
-                    'created_at' => $user->created_at,
-                    'updated_at' => $user->updated_at,
-                ]
-            ]);
+                'success' => false,
+                'message' => 'Credenciales incorrectas'
+            ], 401);
         }
 
+        $user = Auth::user();
         return response()->json([
-            'success' => false,
-            'message' => 'Credenciales incorrectas'
-        ], 401);
+            'success' => true,
+            'message' => 'Logeado correctamente',
+            'token' => $user->createToken('minig.app')->plainTextToken,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'email_verified_at' => $user->email_verified_at,
+                'roles' => $user->getRoleNames(),
+                'created_at' => $user->created_at,
+                'updated_at' => $user->updated_at,
+            ]
+        ]);
     }
 
     public function logout(Request $request)
     {
-        $user = $request->user(); // auth()->user() también funciona
-
+        $user = $request->user();
         if ($user) {
-            $user->currentAccessToken()->delete();
-
+            $user->currentAccessToken()?->delete();
             return response()->json([
                 'success' => true,
                 'message' => 'Sesión cerrada'
             ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No autenticado'
+            ], 401);
         }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'No autenticado'
-        ], 401);
     }
 }

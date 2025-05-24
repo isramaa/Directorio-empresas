@@ -23,17 +23,18 @@ const EmpresaModal = ({ show, empresa, onClose }) => {
         </div>
         <div className="text-center">
           <img 
-            src={empresa.urlfoto ? `/img/empresa/${empresa.urlfoto}` : 'https://via.placeholder.com/300x200?text=Sin+Imagen'} 
+            src={empresa.urlfoto ? `/img/empresa/${empresa.urlfoto}` : 'https://via.placeholder.com/120?text=Sin+Imagen'} 
             alt={empresa.nombre}
-            className="img-fluid mb-3 rounded"
-            style={{maxHeight: '200px', objectFit: 'cover'}}
+            className="mb-3 rounded-circle border border-2"
+            style={{width: '120px', height: '120px', objectFit: 'cover', boxShadow: '0 0 10px #ccc'}}
           />
-          <p>{empresa.descripcion}</p>  
-          <h5>{empresa.telefono}</h5>
-          <p>{empresa.email}</p>
-          <p>{empresa.direccion}</p>
+          <h4 className="fw-bold mb-3">{empresa.nombre}</h4>
+          <p className="mb-2">{empresa.descripcion}</p>  
+          <h6 className="mb-1 text-primary">{empresa.telefono}</h6>
+          <p className="mb-1">{empresa.email}</p>
+          <p className="mb-1">{empresa.direccion}</p>
 
-          <div className="container">
+          <div className="container mt-3">
             <div className="row mb-2">
               <div className="col-6"><p className="mb-1">{empresa.website}</p></div>
               <div className="col-6"><p className="mb-1">{empresa.facebook}</p></div>

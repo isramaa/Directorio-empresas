@@ -16,6 +16,8 @@ export default {
 
   // Public
   GetEmpresas:(data) => api.get(`/public/empresas/${data}`),
+  GetCategorias: () => api.get(`/public/categorias`),
+  GetCategoriaBySlug: (slug) => api.get(`/public/categoria/${slug}`),
 
   // Logout usando token Bearer
   GetLogout: (token) =>

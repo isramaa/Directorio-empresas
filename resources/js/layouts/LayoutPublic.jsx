@@ -1,15 +1,16 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { Outlet, useNavigate } from 'react-router-dom'
-import AuthUser from '../pageauth/AuthUser'
+import { Outlet } from 'react-router-dom'
 
 export default function LayoutPublic() {
   return (
-    <>
-    <Navbar/>
-    <Outlet/>
-    <Footer/>
-    </>
+    <div className="d-flex flex-column min-vh-100">
+      <Navbar />
+      <div className="flex-grow-1">
+        <Outlet />
+      </div>
+      <Footer />
+    </div>
   )
 }

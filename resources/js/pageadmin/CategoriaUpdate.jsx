@@ -45,72 +45,58 @@ const CategoriaUpdate = () => {
     }
 
   return (
-    <div className="container bg-light">
-            <div className="row">
-                <Sidebar />
-                <div className="col-sm-9 mt-3 mb-3">
-                    <div className="card">
-                        <div className="card-body">
-                            <form onSubmit={submitUpdate}>
-                                <div className="form-group row">
-                                    <div className="mt-3">
-                                        <div className="form-check form-switch">
-                                            <input className='form-check-input' checked={menu} onChange={(e) => setMenu(!menu)} type='checkbox' role='switch' id='menu'/>
-                                            <label className='form-check-label' htmlFor='menu'>Publicado</label>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-8">
-                                        <label>Nombre</label>
-                                        <input
-                                            className='form-control'
-                                            value={nombre}
-                                            onChange={(e) => setNombre(e.target.value)}
-                                            type='text'
-                                        />
-                                    </div>
-                                    <div className="col-sm-4">
-                                        <label>Orden</label>
-                                        <input
-                                            className='form-control'
-                                            value={orden}
-                                            onChange={(e) => setOrden(e.target.value)}
-                                            type='number'
-                                        />
-                                    </div>
-                                </div>
-                                <div className="mt-3">
-                                    <label>Descripcion: </label>
-                                    <textarea
-                                        className='form-control'
-                                        value={descripcion}
-                                        onChange={(e) => setDescripcion(e.target.value)}
-                                    ></textarea>
-                                </div>
-                                <div className="mt-3">
-                                    <label>Imagen:</label>
-                                    <img
-                                    src={urlfoto.startsWith('data:image') ? urlfoto : `/img/categoria/${urlfoto}?v=${Date.now()}`}
-                                    className='img-fluid img-thumbnail'
-                                    alt="Vista previa"
-                                    style={{ maxWidth: "300px", display: urlfoto ? "block" : "none" }}
-                                    />
-                                    <input
-                                        className='form-control'
-                                        type='file'
-                                        onChange={handleInputChange}
-                                        ref={fileInputRef}
-                                    />
-                                </div>
-                                <div className="btn-group mt-3">
-                                    <Link to={-1} className='btn btn-secondary'>Regresar</Link>
-                                    <button type='submit' className='btn btn-primary'>Actualizar Categoria</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+    <div className="container-fluid bg-light min-vh-100 py-4">
+      <div className="row">
+        <Sidebar />
+        <main className="col-sm-9 mt-3 mb-3">
+          <div className="card shadow rounded-4 border-0">
+            <div className="card-header bg-primary text-white fw-bold fs-5 d-flex align-items-center gap-2">
+              <i className="bi bi-tags me-2"></i> Editar Categoría
             </div>
-        </div>
+            <div className="card-body">
+              <form onSubmit={submitUpdate}>
+                <div className="row mb-3">
+                  <div className="col-md-8">
+                    <label className="form-label fw-semibold">Nombre</label>
+                    <input className='form-control rounded-pill' value={nombre} onChange={(e) => setNombre(e.target.value)} type='text' />
+                  </div>
+                  <div className="col-md-4">
+                    <label className="form-label fw-semibold">Orden</label>
+                    <input className='form-control rounded-pill' value={orden} onChange={(e) => setOrden(e.target.value)} type='number' />
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-semibold">Descripción</label>
+                  <textarea className='form-control rounded-3' value={descripcion} onChange={(e) => setDescripcion(e.target.value)} rows={3}></textarea>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-semibold">Imagen</label>
+                  <img
+                    src={urlfoto.startsWith('data:image') ? urlfoto : `/img/categoria/${urlfoto}?v=${Date.now()}`}
+                    className='img-fluid img-thumbnail mb-2 d-block'
+                    alt="Vista previa"
+                    style={{ maxWidth: "300px", display: urlfoto ? "block" : "none" }}
+                  />
+                  <input className='form-control' type='file' onChange={handleInputChange} ref={fileInputRef} />
+                </div>
+                <div className="form-check form-switch mb-3">
+                  <input className='form-check-input' checked={menu} onChange={() => setMenu(!menu)} type='checkbox' role='switch' id='menu' />
+                  <label className='form-check-label' htmlFor='menu'>Publicado</label>
+                </div>
+                <div className="d-flex gap-2 mt-4">
+                  <Link to={-1} className='btn btn-secondary rounded-pill px-4'>
+                    <i className="bi bi-arrow-left me-1"></i>Regresar
+                  </Link>
+                  <button type='submit' className='btn btn-primary rounded-pill px-4'>
+                    <i className="bi bi-save me-1"></i>Actualizar Categoría
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
   )
 }
 
