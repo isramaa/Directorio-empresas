@@ -18,7 +18,8 @@ const EmpresaUpdate = () => {
     const [youtube, setYoutube] = useState("");
     const [tiktok, setTiktok] = useState("");
     const [urlfoto, setUrlfoto] = useState("")
-    const[categoria_id, setCategoria_id] = useState()
+    const [categoria_id, setCategoria_id] = useState()
+    const [errors, setErrors] = useState({});
     const fileInputRef = useRef(null)
 
     useEffect(() => {
@@ -41,10 +42,28 @@ const EmpresaUpdate = () => {
         GetCategoriaById();
     }, [id]);
 
+    const validate = () => {
+        const newErrors = {};
+        if (!nombre) newErrors.nombre = 'El nombre es obligatorio';
+        if (!email) newErrors.email = 'El correo es obligatorio';
+        else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) newErrors.email = 'Correo inválido';
+        if (!categoria_id) newErrors.categoria_id = 'Seleccione una categoría';
+        if (!descripcion) newErrors.descripcion = 'La descripción es obligatoria';
+        if (!telefono) newErrors.telefono = 'El teléfono es obligatorio';
+        if (!direccion) newErrors.direccion = 'La dirección es obligatoria';
+        if (orden === '' || isNaN(orden)) newErrors.orden = 'El orden es obligatorio y debe ser un número';
+        return newErrors;
+    }
+
     const submitUpdate = async (ev) => {
-        ev.preventDefault()
-        await Config.GetEmpresaUpdateClient
-        ({
+        ev.preventDefault();
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
+        setErrors({});
+        await Config.GetEmpresaUpdateClient({
             nombre,
             email,
             orden,
@@ -88,34 +107,41 @@ const EmpresaUpdate = () => {
                                 <div className="row mb-3">
                                     <div className="col-md-6">
                                         <label className="form-label fw-semibold">Nombre</label>
-                                        <input className='form-control rounded-pill' value={nombre} onChange={(e) => setNombre(e.target.value)} type='text' />
+                                        <input className={`form-control rounded-pill${errors.nombre ? ' is-invalid' : ''}`} value={nombre} onChange={(e) => setNombre(e.target.value)} type='text' />
+                                        {errors.nombre && <div className="invalid-feedback">{errors.nombre}</div>}
                                     </div>
                                     <div className="col-md-3">
                                         <label className="form-label fw-semibold">Orden</label>
-                                        <input className='form-control rounded-pill' value={orden} onChange={(e) => setOrden(e.target.value)} type='number' />
+                                        <input className={`form-control rounded-pill${errors.orden ? ' is-invalid' : ''}`} value={orden} onChange={(e) => setOrden(e.target.value)} type='number' />
+                                        {errors.orden && <div className="invalid-feedback">{errors.orden}</div>}
                                     </div>
                                     <div className="col-md-3">
                                         <label className="form-label fw-semibold">Categoría</label>
                                         <Select selected={getCategoriaId} value={categoria_id} />
+                                        {errors.categoria_id && <div className="invalid-feedback d-block">{errors.categoria_id}</div>}
                                     </div>
                                 </div>
                                 <div className="row mb-3">
                                     <div className="col-md-4">
                                         <label className="form-label fw-semibold">Email</label>
-                                        <input className="form-control rounded-pill" value={email} onChange={(e) => setEmail(e.target.value)} type="email" />
+                                        <input className={`form-control rounded-pill${errors.email ? ' is-invalid' : ''}`} value={email} onChange={(e) => setEmail(e.target.value)} type="email" />
+                                        {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                                     </div>
                                     <div className="col-md-4">
                                         <label className="form-label fw-semibold">Teléfono</label>
-                                        <input className="form-control rounded-pill" value={telefono} onChange={(e) => setTelefono(e.target.value)} type='tel' />
+                                        <input className={`form-control rounded-pill${errors.telefono ? ' is-invalid' : ''}`} value={telefono} onChange={(e) => setTelefono(e.target.value)} type='tel' />
+                                        {errors.telefono && <div className="invalid-feedback">{errors.telefono}</div>}
                                     </div>
                                     <div className="col-md-4">
                                         <label className="form-label fw-semibold">Dirección</label>
-                                        <input className="form-control rounded-pill" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
+                                        <input className={`form-control rounded-pill${errors.direccion ? ' is-invalid' : ''}`} value={direccion} onChange={(e) => setDireccion(e.target.value)} />
+                                        {errors.direccion && <div className="invalid-feedback">{errors.direccion}</div>}
                                     </div>
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label fw-semibold">Descripción</label>
-                                    <textarea className="form-control rounded-3" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} rows={3}></textarea>
+                                    <textarea className={`form-control rounded-3${errors.descripcion ? ' is-invalid' : ''}`} value={descripcion} onChange={(e) => setDescripcion(e.target.value)} rows={3}></textarea>
+                                    {errors.descripcion && <div className="invalid-feedback">{errors.descripcion}</div>}
                                 </div>
                                 <div className="row mb-3">
                                     <div className="col-md-3">

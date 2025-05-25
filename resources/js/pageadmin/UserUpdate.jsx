@@ -9,6 +9,7 @@ const UserUpdate = () => {
     const { id } = useParams();
     const [name, setName] = useState("");
     const [aprobado, setAprobado] = useState(false);
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
     const GetUserById = async () => {
@@ -21,8 +22,20 @@ const UserUpdate = () => {
     }, []);
 
 
+    const validate = () => {
+        const newErrors = {};
+        if (!name) newErrors.name = 'El nombre es obligatorio';
+        return newErrors;
+    }
+
     const submitUpdate = async (ev) => {
-        ev.preventDefault()
+        ev.preventDefault();
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
+        setErrors({});
         await Config.GetUserUpdate({name, aprobado}, id)
         navigate('/admin/user')
     }
@@ -40,7 +53,8 @@ const UserUpdate = () => {
               <form onSubmit={submitUpdate}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label fw-semibold">Nombre</label>
-                  <input type="text" className='form-control rounded-pill' value={name ?? ""} onChange={(e) => setName(e.target.value)} />
+                  <input type="text" className={`form-control rounded-pill${errors.name ? ' is-invalid' : ''}`} value={name ?? ""} onChange={(e) => setName(e.target.value)} />
+                  {errors.name && <div className="invalid-feedback">{errors.name}</div>}
                 </div>
                 <div className="mb-3">
                   <div className="form-check form-switch">

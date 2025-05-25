@@ -8,6 +8,7 @@ const CategoriaStore = () => {
     const [descripcion, setDescripcion] = useState('')
     const [orden, setOrden] = useState('')
     const [urlfoto, setUrlfoto] = useState('')
+    const [errors, setErrors] = useState({});
     const fileInputRef = useRef(null) 
 
     const handleInputChange = async (e) => {
@@ -19,8 +20,21 @@ const CategoriaStore = () => {
         }
     }
 
+    const validate = () => {
+        const newErrors = {};
+        if (!nombre) newErrors.nombre = 'El nombre es obligatorio';
+        if (orden === '' || isNaN(orden)) newErrors.orden = 'El orden es obligatorio y debe ser un número';
+        return newErrors;
+    }
+
     const submitStore = async (e) => {
         e.preventDefault();
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
+        setErrors({});
         await Config.GetCategoriaStore({ nombre, descripcion, orden, urlfoto })
         setNombre('');
         setDescripcion('');
@@ -45,11 +59,13 @@ const CategoriaStore = () => {
                 <div className="row mb-3">
                   <div className="col-md-8">
                     <label className="form-label fw-semibold">Nombre</label>
-                    <input className='form-control rounded-pill' value={nombre} onChange={(e) => setNombre(e.target.value)} type='text' />
+                    <input className={`form-control rounded-pill${errors.nombre ? ' is-invalid' : ''}`} value={nombre} onChange={(e) => setNombre(e.target.value)} type='text' />
+                    {errors.nombre && <div className="invalid-feedback">{errors.nombre}</div>}
                   </div>
                   <div className="col-md-4">
                     <label className="form-label fw-semibold">Orden</label>
-                    <input className='form-control rounded-pill' value={orden} onChange={(e) => setOrden(e.target.value)} type='number' />
+                    <input className={`form-control rounded-pill${errors.orden ? ' is-invalid' : ''}`} value={orden} onChange={(e) => setOrden(e.target.value)} type='number' />
+                    {errors.orden && <div className="invalid-feedback">{errors.orden}</div>}
                   </div>
                 </div>
                 <div className="mb-3">
