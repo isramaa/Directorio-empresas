@@ -3,7 +3,7 @@ import AuthUser from '../pageauth/AuthUser';
 import Config from '../Config';
 
 export default function Navbar() {
-  const { token, getLogout, rol, user } = AuthUser(); // Usamos 'rol' directamente
+  const { token, getLogout, rol, user } = AuthUser(); 
 
   const handleLogout = async () => {
     const token = sessionStorage.getItem('token');
@@ -27,7 +27,7 @@ export default function Navbar() {
   // Ruta de administración según el rol
   const adminLink = () => {
     if (rol === 'admin') return "/admin";
-    if (rol === 'client') return "/client"; // corregido si el rol es 'client', no 'cliente'
+    if (rol === 'client') return "/client"; 
     return "#";
   };
 
